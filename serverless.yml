@@ -1,0 +1,71 @@
+service: apitemplate
+
+custom:
+    environments:
+        local: local
+        dev: Dev
+        test: Test
+        stg: Stage
+        prod: Prod
+        
+provider:
+    name: azure
+    runtime: nodejs12
+    prefix: sample
+    stage: ${opt:stage, 'dev'}
+    location: ${opt:region, 'Southeast Asia'}
+    #subscriptionId: ""
+    #type: 'Developer'
+    environment:
+        NODE_ENV: ${self:provider.stage}
+        DOMAIN_BASEPATH: "api"
+        APP_NAME: ${self:service}
+        APP_HOST_SSL: false
+        APP_TIMEZONE: "Asia/Manila"
+        AZURE_SUBSCRIPTION_ID: ""
+        AZURE_TENANT_ID: ""
+        AZURE_CLIENT_ID: ""
+        AZURE_CLIENT_SECRET: ""
+        ACCESSKEY: ""
+        SECRETKEY: ""
+        DB_DRIVER: mysql
+        DB_NAME: ""
+        DB_USERNAME: ""
+        DB_PASSWORD: ""
+        DB_HOST: ""
+        DB_PORT: 3306
+        DB_SSL: true
+    
+functions:
+    app:
+        handler: index
+        name: ${self:service}-${opt:stage, self:provider.stage}-function # optional, Deployed functions name
+        description: 'API Function'
+        events:
+            -   http: true
+                methods:
+                    - get
+                    - post
+                    - put
+                    - delete
+                    - patch
+                route: "{*segments}"
+                x-azure-settings:
+                    authLevel: anonymous
+            #-   timer:
+                    #name: ${self:service}-${opt:stage, self:provider.stage}-cron-warmup
+                    #description: "schedule events for keeping the function active"
+                    #schedule: 'rate(3 minutes)'
+                    #enabled: true
+
+package:
+    exclude:
+        - .github/**
+        - temp/**
+    include:
+        - .env
+        - node_modules/**
+
+plugins:
+  - serverless-azure-functions
+  - serverless-pseudo-parameters
