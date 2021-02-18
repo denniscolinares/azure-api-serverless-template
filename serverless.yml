@@ -11,10 +11,10 @@ custom:
 provider:
     name: azure
     runtime: nodejs12
-    prefix: sample
+    prefix: "Azure"
     stage: ${opt:stage, 'dev'}
     location: ${opt:region, 'Southeast Asia'}
-    #subscriptionId: ""
+    subscriptionId: "cc6db917-9d37-4986-973e-bd71bffaca0e"
     #type: 'Developer'
     environment:
         NODE_ENV: ${self:provider.stage}
@@ -22,7 +22,7 @@ provider:
         APP_NAME: ${self:service}
         APP_HOST_SSL: false
         APP_TIMEZONE: "Asia/Manila"
-        AZURE_SUBSCRIPTION_ID: ""
+        AZURE_SUBSCRIPTION_ID: ${self:provider.subscriptionId}
         AZURE_TENANT_ID: ""
         AZURE_CLIENT_ID: ""
         AZURE_CLIENT_SECRET: ""
@@ -54,9 +54,7 @@ functions:
                     authLevel: anonymous
             #-   timer:
                     #name: ${self:service}-${opt:stage, self:provider.stage}-cron-warmup
-                    #description: "schedule events for keeping the function active"
-                    #schedule: 'rate(3 minutes)'
-                    #enabled: true
+                    #schedule: "0 */3 * * * *"
 
 package:
     exclude:
