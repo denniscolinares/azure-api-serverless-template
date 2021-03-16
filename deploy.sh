@@ -9,9 +9,9 @@ npm install
 
 #npm audit fix
 
-echo "Installing serverless-s3-sync"
+echo "Installing serverless plugins"
 echo "_______________________________"
-npm install serverless-offline serverless-offline-scheduler serverless-offline-sns serverless-s3-local serverless-pseudo-parameters serverless-domain-manager serverless-plugin-tracing serverless-apigw-binary serverless-content-encoding serverless-plugin-warmup serverless-offline-scheduler
+npm install serverless-azure-functions serverless-pseudo-parameters
 
 #npm audit fix
 

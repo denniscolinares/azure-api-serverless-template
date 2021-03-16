@@ -13,7 +13,7 @@
     "dbMigrate": "export NODE_ENV=dev | sequelize db:migrate",
     "test-coverage": "NODE_ENV=test ./node_modules/.bin/jest . --config=jest.config.json",
     "test": "jest .",
-	  "azureLogin": "az login --use-device-code"
+    "azureLogin": "az login --use-device-code"
   },
   "engines": {
     "node": ">=12.16.1"
