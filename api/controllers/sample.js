@@ -1,6 +1,6 @@
 'use strict';
 
-const models = require('../models/index').dynamodb;
+const models = require('../models/index').sql;
 const _ = require('lodash');
 const Promise = require("bluebird");
 const moment = require('moment');
