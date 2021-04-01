@@ -1,4 +1,4 @@
-service: apitemplate
+service: apitemplates
 
 custom:
     environments:
@@ -14,7 +14,7 @@ provider:
     prefix: "Azure"
     stage: ${opt:stage, 'dev'}
     location: ${opt:region, 'Southeast Asia'}
-    subscriptionId: "cc6db917-9d37-4986-973e-bd71bffaca0e"
+    subscriptionId: ${self:provider.environment.AZURE_SUBSCRIPTION_ID}
     #type: 'Developer'
     environment:
         NODE_ENV: ${self:provider.stage}
@@ -22,7 +22,7 @@ provider:
         APP_NAME: ${self:service}
         APP_HOST_SSL: false
         APP_TIMEZONE: "Asia/Manila"
-        AZURE_SUBSCRIPTION_ID: ${self:provider.subscriptionId}
+        AZURE_SUBSCRIPTION_ID: "cc6db917-9d37-4986-973e-bd71bffaca0e"
         AZURE_TENANT_ID: ""
         AZURE_CLIENT_ID: ""
         AZURE_CLIENT_SECRET: ""
@@ -39,8 +39,7 @@ provider:
 functions:
     app:
         handler: index
-        name: ${self:service}-${opt:stage, self:provider.stage}-function # optional, Deployed functions name
-        description: 'API Function'
+        name: req
         events:
             -   http: true
                 methods:
@@ -48,20 +47,23 @@ functions:
                     - post
                     - put
                     - delete
-                    - patch
                 route: "{*segments}"
-                x-azure-settings:
-                    authLevel: anonymous
-            #-   timer:
-                    #name: ${self:service}-${opt:stage, self:provider.stage}-cron-warmup
-                    #schedule: "0 */3 * * * *"
+                authLevel: anonymous
+
+    warmup:
+        handler: warmup/warmup
+        events:
+            -   timer: true
+                name: timerObj
+                schedule: "0 */1 * * * *"
 
 package:
     exclude:
         - .github/**
         - temp/**
-    include:
         - .env
+        - .env.sample
+    include:
         - node_modules/**
 
 plugins:
