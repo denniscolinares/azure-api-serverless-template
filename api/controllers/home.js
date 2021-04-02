@@ -9,7 +9,7 @@ const HomeController = {
 	index : function(req, res, next) {
 		
 		res.success({
-			data: "Hello, Welcome"
+			data: "Hello, Welcome."
 		});
 	},
 	getenvironment : function(req, res, next) {

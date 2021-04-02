@@ -1,4 +1,4 @@
-service: apitemplates
+service: api-templates
 
 custom:
     environments:
@@ -13,7 +13,7 @@ provider:
     runtime: nodejs12
     prefix: "Azure"
     stage: ${opt:stage, 'dev'}
-    location: ${opt:region, 'Southeast Asia'}
+    location: "Southeast Asia"
     subscriptionId: ${self:provider.environment.AZURE_SUBSCRIPTION_ID}
     #type: 'Developer'
     environment:
@@ -55,16 +55,31 @@ functions:
         events:
             -   timer: true
                 name: timerObj
-                schedule: "0 */1 * * * *"
+                schedule: "0 */15 * * * *"
 
 package:
-    exclude:
-        - .github/**
-        - temp/**
-        - .env
-        - .env.sample
-    include:
+    patterns:
+        - '!.github/**'
+        - '!temp/**'
+        - '!.env'
+        - '!.env.sample'
+        - api/**
+        - config/**
+        - database/**
+        - library/**
+        - logs/**
         - node_modules/**
+        - routes/**
+        - system/**
+        - test/**
+        - warmup/**
+        - .sequelizerc
+        - host.json
+        - index.js
+        - jest.config.json
+        - local.settings.json
+        - package.json
+        - package-lock.json
 
 plugins:
   - serverless-azure-functions

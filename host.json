@@ -2,7 +2,7 @@
   "version": "2.0",
   "extensionBundle": {
     "id": "Microsoft.Azure.Functions.ExtensionBundle",
-    "version": "[1.*, 2.0.0)"
+    "version": "[1.*, 2.0.0]"
   },
 	"extensions": {
 		"http": {
@@ -11,5 +11,8 @@
 			"maxConcurrentRequests": -1,
 			"dynamicThrottlesEnabled": false
 		}
-	}
+	},
+	"functions": [ "app", "warmup" ],
+	"watchDirectories": [ "api", "config", "database", "library", "routes", "system", "warmup", "test", "node_modules" ],
+	"watchFiles": [ "index.js", ".sequelizerc", ".env", "jest.config.json", "package.json", "package-lock.json" ]
 }
