@@ -14,7 +14,9 @@ provider:
     prefix: "Azure"
     stage: ${opt:stage, 'dev'}
     location: "Southeast Asia"
+    region: ${self:provider.location}
     subscriptionId: ${self:provider.environment.AZURE_SUBSCRIPTION_ID}
+    resourceGroup: 'DefaultResourceGroup-SEA' #Set manually the resourceGroup
     type: premium # values consumption, premium
     environment:
         NODE_ENV: ${self:provider.stage}
@@ -60,7 +62,6 @@ functions:
 package:
     excludeDevDependencies: true
     patterns:
-        - '!./**'
         - '!node_modules/@modulenamespace/*/node_modules/**'
         - '!.git/**'
         - '!.idea/**'
