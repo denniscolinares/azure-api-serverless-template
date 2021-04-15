@@ -16,7 +16,6 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const path = require('path');
 const moment = require('moment');
-const AWS = require('./library/aws-sdk');
 const pkg = require('./package');
 
 /*

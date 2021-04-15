@@ -9,7 +9,7 @@ const HomeController = {
 	index : function(req, res, next) {
 		
 		res.success({
-			data: "Hello, Welcome."
+			data: "Need authorization to access this site."
 		});
 	},
 	getenvironment : function(req, res, next) {

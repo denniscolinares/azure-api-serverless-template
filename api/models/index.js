@@ -12,7 +12,6 @@ const relationship = require('./relationship');
 const Promise = require('bluebird');
 const winston = require('../../library/winston');
 const _ = require('lodash');
-const dynamoose = require('dynamoose');
 const moment = require('moment-timezone');
 
 const sqlModels = function() {
@@ -165,60 +164,7 @@ const mongodbModel = function() {
 	return db;
 };
 
-const dynamodbModel = function() {
-	const db = {},
-			modelsDir = appRoot + "/api/models/dynamodb",
-			dynamoSettings = {
-				region : config.database.dynamodb.region,
-				options : {
-					create : config.database.dynamodb.autoCreateTable,
-					update : config.database.dynamodb.update,
-					waitForActive : config.database.dynamodb.waitForActive,
-					expires : null,
-					streamOptions : {
-						enabled : config.database.dynamodb.streamOptions,
-						type : undefined
-					},
-					serverSideEncryption : config.database.dynamodb.encryption,
-					defaultReturnValues : 'ALL_NEW'
-				}
-			};
-	
-	if (!config.database.dynamodb.enabled) {
-		return {};
-	}
-	
-	dynamoose.logger.providers.set(winston);
-	
-	dynamoose.aws.sdk.config.update({
-		accessKeyId : config.amazon.accessKeyId,
-		secretAccessKey : config.amazon.secretAccessKey,
-		region : dynamoSettings.region
-	});
-	
-	dynamoose.model.defaults.set({
-		create : config.database.dynamodb.autoCreateTable,
-		prefix : config.database.dynamodb.prefix,
-		suffix : config.database.dynamodb.suffix
-	});
-	
-	fs.readdirSync(modelsDir).filter((file) => {
-		return (file.indexOf(".") !== 0) && (file !== basename) && (file.slice(-3) === ".js");
-	}).forEach((file) => {
-		const schema = require(path.join(modelsDir, file)),
-				filename = _.trim(file.replace(".js", ""), ""),
-				model = schema(dynamoose);
-		
-		db[filename] = dynamoose.model(model.name, model.schema, _.assignIn(dynamoSettings.options, model.options));
-	});
-	
-	db.dynamoose = dynamoose;
-	
-	return db;
-};
-
 module.exports = {
 	sql : sqlModels(),
-	mongodb : mongodbModel(),
-	dynamodb : dynamodbModel()
+	mongodb : mongodbModel()
 };

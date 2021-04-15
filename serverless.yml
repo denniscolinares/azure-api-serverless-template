@@ -15,7 +15,7 @@ provider:
     stage: ${opt:stage, 'dev'}
     location: "Southeast Asia"
     subscriptionId: ${self:provider.environment.AZURE_SUBSCRIPTION_ID}
-    #type: 'Developer'
+    type: premium # values consumption, premium
     environment:
         NODE_ENV: ${self:provider.stage}
         DOMAIN_BASEPATH: "api"
@@ -59,6 +59,7 @@ functions:
 
 package:
     patterns:
+        - '!node_modules/@modulenamespace/*/node_modules/**'
         - '!.github/**'
         - '!temp/**'
         - '!.env'
@@ -68,7 +69,6 @@ package:
         - database/**
         - library/**
         - logs/**
-        - node_modules/**
         - routes/**
         - system/**
         - test/**
@@ -83,4 +83,3 @@ package:
 
 plugins:
   - serverless-azure-functions
-  - serverless-pseudo-parameters
