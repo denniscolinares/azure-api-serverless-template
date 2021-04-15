@@ -58,12 +58,18 @@ functions:
                 schedule: "0 */15 * * * *"
 
 package:
+    excludeDevDependencies: true
     patterns:
+        - '!./**'
         - '!node_modules/@modulenamespace/*/node_modules/**'
-        - '!.github/**'
+        - '!.git/**'
+        - '!.idea/**'
+        - '!.vscode/**'
         - '!temp/**'
         - '!.env'
         - '!.env.sample'
+        - '!local.settings.json'
+        - '!.gitignore'
         - api/**
         - config/**
         - database/**
@@ -77,7 +83,6 @@ package:
         - host.json
         - index.js
         - jest.config.json
-        - local.settings.json
         - package.json
         - package-lock.json
 
