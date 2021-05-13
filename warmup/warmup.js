@@ -7,7 +7,7 @@ const moment = require('moment');
 
 const warmupFunction = async function(context, timerObj){
 	const timeStamp = moment().toISOString();
-	const url = "https://" + process.env.WEBSITE_CONTENTSHARE + ".azurewebsites.net/" + process.env.DOMAIN_BASEPATH;
+	const url = "https://" + process.env["WEBSITE_CONTENTSHARE"] + ".azurewebsites.net/" + process.env["DOMAIN_BASEPATH"];
 	
 	context.log("URL = ", url);
 	

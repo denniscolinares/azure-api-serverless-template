@@ -67,7 +67,6 @@ package:
         - '!.idea/**'
         - '!.vscode/**'
         - '!temp/**'
-        - '!.env'
         - '!.env.sample'
         - '!local.settings.json'
         - '!.gitignore'
@@ -80,6 +79,7 @@ package:
         - system/**
         - test/**
         - warmup/**
+        - .env
         - .sequelizerc
         - host.json
         - index.js

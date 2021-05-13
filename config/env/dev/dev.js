@@ -12,13 +12,19 @@ const develop = (env) => {
 		},
 		database : {
 			rdbms : {
-				enabled : false,
+				enabled : true,
 				driver : env.DB_DRIVER,
 				host : env.DB_HOST,
 				port : env.DB_PORT,
 				username : env.DB_USERNAME,
 				password : env.DB_PASSWORD,
 				database : "",
+				dialectOptions: {
+					options: {
+						encrypt: true,
+						trustServerCertificate: false
+					}
+				},
 				ssl : env.DB_SSL,
 				pool : false
 			},

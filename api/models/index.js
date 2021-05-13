@@ -61,8 +61,9 @@ const sqlModels = function() {
 				username : config.database.rdbms.username,
 				password : config.database.rdbms.password,
 				database : config.database.rdbms.database,
-				timezone : moment.tz(config.application.defaultTimezone).format("Z"),
+				dialectOptions: config.database.rdbms.dialectOptions,
 				protocol : 'tcp',
+				timezone : moment.tz(config.application.defaultTimezone).format("Z"),
 				typeValidation : true,
 				operatorsAliases : operatorsAliases
 			};
